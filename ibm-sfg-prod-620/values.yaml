@@ -17,7 +17,7 @@ global:
     # Provide the tag value in double quotes
     tag: "6.2.0.0"
     # If digest is specified, it takes precedence over tag
-    # digest: sha256:178536b3cf63366a9a3da32ab90935fd28521a88421562375867c859809f6291
+    digest: sha256:178536b3cf63366a9a3da32ab90935fd28521a88421562375867c859809f6291
     pullPolicy: IfNotPresent
     pullSecret: ""
   networkPolicies:
