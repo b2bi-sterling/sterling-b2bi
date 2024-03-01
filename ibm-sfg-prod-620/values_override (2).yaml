@@ -10,60 +10,60 @@ global:
     ingress:
       enabled: true
       customPolicies:
-      - name: "custom-ingress"
-        fromSelectors:
-        # - namespaceSelector:
-        #     matchLabels:
-        #       name: my-source-namespace
-        #   podSelector:
-        #     matchLabels:
-        #       app.kubernetes.io/name: my-consumer-pod
-        # - podSelector:
-        #     matchLabels:
-        #       role: frontend
-        # - ipBlock:
-        #     cidr: 35.231.164.129/32 # database
-        # - ipBlock:
-        #     cidr: 169.63.104.235/32 # cp.icr.io
-            # except:
-            # - <IP Address>/<block size>
-        ports:
-        - protocol: TCP
-          port: 1433
-          endPort: 1433
+        - name: "custom-ingress"
+          fromSelectors:
+          # - namespaceSelector:
+          #     matchLabels:
+          #       name: my-source-namespace
+          #   podSelector:
+          #     matchLabels:
+          #       app.kubernetes.io/name: my-consumer-pod
+          # - podSelector:
+          #     matchLabels:
+          #       role: frontend
+          # - ipBlock:
+          #     cidr: 35.231.164.129/32 # database
+          # - ipBlock:
+          #     cidr: 169.63.104.235/32 # cp.icr.io
+          # except:
+          # - <IP Address>/<block size>
+          ports:
+            - protocol: TCP
+              port: 1433
+              endPort: 1433
     egress:
       enabled: true
       customPolicies:
-      - name: "custom-egress"
-        toSelectors:
-      #  - namespaceSelector:
-      #      matchLabels:
-      #        name: my-source-namespace
-      #    podSelector:
-      #      matchLabels:
-      #        app.kubernetes.io/name: my-consumer-pod
-      #  - podSelector:
-      #      matchLabels:
-      #        role: frontend
-        # - ipBlock:
-        #     cidr: 35.231.164.129/32 # database
-        # - ipBlock:
-        #     cidr: 169.63.104.235/32 # cp.icr.io
-      #      except:
-      #      - <IP Address>/<block size>
-        ports:
-          - protocol: TCP
-            port: 1433
-            endPort: 1433
+        - name: "custom-egress"
+          toSelectors:
+          #  - namespaceSelector:
+          #      matchLabels:
+          #        name: my-source-namespace
+          #    podSelector:
+          #      matchLabels:
+          #        app.kubernetes.io/name: my-consumer-pod
+          #  - podSelector:
+          #      matchLabels:
+          #        role: frontend
+          # - ipBlock:
+          #     cidr: 35.231.164.129/32 # database
+          # - ipBlock:
+          #     cidr: 169.63.104.235/32 # cp.icr.io
+          #      except:
+          #      - <IP Address>/<block size>
+          ports:
+            - protocol: TCP
+              port: 1433
+              endPort: 1433
 ingress:
   enabled: false
 # documentService:
 #   license: true
 #   enabled: true
 #   sslEnabled: false
-  # useGrpc: false
-  # image:
-  #   pullSecret: ibm-entitlement-key
+# useGrpc: false
+# image:
+#   pullSecret: ibm-entitlement-key #where it gets drivers to drop into b2bi container
 resourcesInit:
   enabled: true
   image:
@@ -95,7 +95,7 @@ appDocumentsPVC:
     value: "documents"
   accessMode: ReadWriteMany
   size: 1000Mi
-dataSetup:
+dataSetup: #do we want the data set to run yes, do we want an upgrade?
   enabled: true
   upgrade: false
   image:
@@ -104,7 +104,7 @@ dataSetup:
 #  upgradeCompatibilityVerified: true
 logs:
   # true if user wish to redirect the application logs to console else false. If provided value is true , then application logs will reside inside containers. No volume mapping will be used.
-   enableAppLogOnConsole: true
+  enableAppLogOnConsole: true
 setupCfg:
   basePort: 30000
   licenseAcceptEnableSfg: true
@@ -126,10 +126,10 @@ setupCfg:
   # Required when usessl is true
   dbTruststore:
   dbKeystore:
-  # Name of DB secret
+  # Name of DB secret - aka holds your DB2_Instance_name and DB2_password
   dbSecret: b2b-db-secret
   #Provide the admin email address
-  adminEmailAddress: thierry.musibon@ibm.com # change
+  adminEmailAddress: sean.shu@ibm.com # change
   # Provide the SMTP host details
   smtpHost: localhost
   useSslForRmi: false
